@@ -2,6 +2,9 @@
 
 Este projeto é um Certificado SSL Checker, que verifica e exibe informações sobre os certificados SSL de uma lista de URLs. Ele permite visualizar o status de validade dos certificados SSL, o domínio, o emissor e a data de validade.
 
+![Gerenciamento SSL](https://github.com/LeviLucena/Certificados-SSL-Web/assets/34045910/af5fcef4-c681-47be-af85-efff2d0c5b1f)
+
+
 ## Funcionalidades
 
 - Verificação de certificados SSL de uma lista de URLs.
