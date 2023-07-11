@@ -3,26 +3,7 @@
 // Desenvolvido por Levi Lucena - linkedin.com/in/levilucena 
 //======================================================================
 $urls = [
-    "https://apimedcovid.saude.sp.gov.br",
-    "https://apimedcovidhom.saude.sp.gov.br",
-    "https://ariadne.saude.sp.gov.br",
-    "https://autoestima.sp.gov.br",
-    "https://homologacao-telemedicina.saude.sp.gov.br",
-    "https://telemedicina.saude.sp.gov.br",
-    "https://vpn.sdr.sp.gov.br",
-    "https://avaesus.saudeemacao.saude.sp.gov.br",
-    "https://homologacaosivisa.saude.sp.gov.br",
-    "https://honiara.saude.sp.gov.br",
-    "https://horamarcada.saude.sp.gov.br",
-    "https://hsistema.saude.sp.gov.br",
-    "https://humanizases.saude.sp.gov.br",
-    "https://imunouvses.saude.sp.gov.br",
-    "https://jenkins.saude.sp.gov.br",
-    "https://jupiter.saude.sp.gov.br",
-    "https://kanboard.saude.sp.gov.br",
-    "https://kumo.saude.sp.gov.br",
-    "https://mail.saude.sp.gov.br",
-    "https://medcovid.saude.sp.gov.br",
+    "https://google.com",
     // Adicione mais URLs aqui...
 ];
 
