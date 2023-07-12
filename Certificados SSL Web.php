@@ -247,6 +247,13 @@ function getValidityClass($validTo) {
             <?php endif; ?>
         <?php endfor; ?>
     </div> 
+
+    <script>
+        setTimeout(function() {
+            location.reload();
+        }, 60000); // Recarregar a página após 1 minuto (60000 milissegundos)
+    </script>
+    
 </body>
 </html>
 
