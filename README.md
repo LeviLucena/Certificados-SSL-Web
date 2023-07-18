@@ -11,6 +11,7 @@ Este projeto é um Certificado SSL Checker, que verifica e exibe informações s
 - Exibição do status de validade dos certificados (válido, expirando ou expirado).
 - Exibição do domínio e do emissor do certificado.
 - Exibição da data de validade do certificado.
+- Exibição de gráfico com distinção entre as URLs
 - Paginação dos resultados para melhor organização e visualização.
 - Classificação dos certificados por tempo de validade (expirados, expirando e válidos).
 - Interface amigável e responsiva.
