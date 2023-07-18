@@ -3,14 +3,7 @@
 // Desenvolvido por Levi Lucena - linkedin.com/in/levilucena 
 //======================================================================
 $urls = [
-    "https://apimedcovid.saude.sp.gov.br",
-    "https://ambulatorial.cross.saude.sp.gov.br",
-    "https://apimedcovidhom.saude.sp.gov.br",
-    "https://ariadne.saude.sp.gov.br",
-    "https://autoestima.sp.gov.br",
-    "https://telemedicina.saude.sp.gov.br",
-    "https://vpn.sdr.sp.gov.br",
-    "https://avaesus.saudeemacao.saude.sp.gov.br",
+    "https://www.google.com",
 
         // Adicione mais URLs aqui...
 ];
