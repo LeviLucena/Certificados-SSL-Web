@@ -283,10 +283,17 @@
         legendUrls[0].innerText = expiredUrls.join('\n');
         legendUrls[1].innerText = expiringUrls.join('\n');
         legendUrls[2].innerText = validUrls.join('\n');
-
+        
+        //ocultar classe container do index.php
         const containers = document.querySelectorAll('.container');
         containers.forEach((container) => {
             container.style.display = 'none';
+        });
+
+        //ocultar classe conteudo do index.php
+        const conteudo = document.querySelectorAll('.conteudo');
+        conteudo.forEach((elemento) => {
+        elemento.style.display = 'none';
         });
     </script>
 
