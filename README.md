@@ -46,6 +46,7 @@ Contribuições são bem-vindas! Sinta-se à vontade para enviar sugestões, cor
 
 Este projeto está licenciado sob a [MIT License](LICENSE). Sinta-se à vontade para utilizá-lo e modificá-lo de acordo com suas necessidades.
 
----
-
 Espero que esse README seja útil para apresentar o projeto final em seu repositório do GitHub. Sinta-se à vontade para personalizá-lo de acordo com suas preferências e necessidades.
+
+## Autor: [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/levilucena/)](https://www.linkedin.com/in/levilucena/)
+
