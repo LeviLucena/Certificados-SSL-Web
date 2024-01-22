@@ -3,18 +3,21 @@
 // Desenvolvido por Levi Lucena - linkedin.com/in/levilucena 
 //======================================================================
 $urls = [
-    "https://www.google.com",
+    "https://www.google.com.br",
 
-        // Adicione mais URLs aqui...
+    // Adicione mais URLs aqui...
 ];
 
+
 // Função para formatar a data do certificado
-function formatDate($timestamp) {
+function formatDate($timestamp)
+{
     return date("d/m/Y", $timestamp);
 }
 
 // Função para obter o certificado SSL de uma URL
-function getCertificate($url) {
+function getCertificate($url)
+{
     $host = parse_url($url, PHP_URL_HOST);
     $port = parse_url($url, PHP_URL_PORT) ?: 443;
 
@@ -23,7 +26,9 @@ function getCertificate($url) {
             "capture_peer_cert" => true,
             "verify_peer" => true,
             "verify_peer_name" => true,
-            "allow_self_signed" => false
+            "allow_self_signed" => false,
+            "crypto_method" => STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT, // Definindo o método de criptografia
+            "ciphers" => "HIGH:MEDIUM" // Definindo as suítes de criptografia permitidas
         ]
     ]);
 
@@ -76,7 +81,8 @@ foreach ($urls as $url) {
 }
 
 // Função para classificar os certificados por tempo de validade
-function compareByValidity($certificateA, $certificateB) {
+function compareByValidity($certificateA, $certificateB)
+{
     $validToA = $certificateA["validTo"] ?? 0;
     $validToB = $certificateB["validTo"] ?? 0;
 
@@ -87,14 +93,15 @@ function compareByValidity($certificateA, $certificateB) {
 usort($certificates, 'compareByValidity');
 
 // Função para obter a classe de validade com base na data de validade
-function getValidityClass($validTo) {
+function getValidityClass($validTo)
+{
     if ($validTo > 0) {
         $difference = $validTo - time();
         $daysToExpiration = floor($difference / (60 * 60 * 24));
 
-        if ($daysToExpiration <= 30) {
+        if ($daysToExpiration <= 0) {
             return "expired";
-        } elseif ($daysToExpiration <= 90) {
+        } elseif ($daysToExpiration <= 30) {
             return "expiring";
         }
     }
@@ -108,6 +115,7 @@ function getValidityClass($validTo) {
 <!-- ====================================================================== -->
 <!-- Desenvolvido por Levi Lucena - linkedin.com/in/levilucena -->
 <!-- ====================================================================== -->
+
 <head>
     <title>Verificação de Certificado SSL</title>
     <style>
@@ -130,7 +138,8 @@ function getValidityClass($validTo) {
 
         .container {
             width: 500px;
-            height: 140px; /* Tamanho fixo em pixels */
+            height: 140px;
+            /* Tamanho fixo em pixels */
             display: inline-block;
             margin: 5px;
             padding: 5px;
@@ -145,7 +154,8 @@ function getValidityClass($validTo) {
             width: 100%;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
@@ -168,7 +178,8 @@ function getValidityClass($validTo) {
         .legend-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px; /* Defina o valor do espaçamento vertical desejado */
+            margin-bottom: 10px;
+            /* Defina o valor do espaçamento vertical desejado */
             margin-right: 10px;
         }
 
@@ -196,9 +207,9 @@ function getValidityClass($validTo) {
         .button-style:active {
             background-color: #003380;
         }
-
     </style>
 </head>
+
 <body>
     <div class="conteudo text-center">
         <img src="https://www.zarphost.com.br/wp-content/uploads/2020/01/certificado-ssl.png" class="imagem">
@@ -206,37 +217,40 @@ function getValidityClass($validTo) {
     </div>
 
     <div class="chart-legend conteudo text-center">
-    <div class="legend-item">
-        <div class="legend-color" style="background-color: red;"></div>
-        <div class="legend-title">Expirados ou inválidos</div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: red;"></div>
+            <div class="legend-title">Expirados ou inválidos</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: orange;"></div>
+            <div class="legend-title">Expirando</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: green;"></div>
+            <div class="legend-title">Válidos</div>
+        </div>
+
+        <div class="legend-item">
+            <a href="grafico.php" target="_blank" onclick="openWindow(event)" class="button-style">
+                <div class="legend-title">Gráfico</div>
+            </a>
+        </div>
     </div>
 
-    <div class="legend-item">
-        <div class="legend-color" style="background-color: orange;"></div>
-        <div class="legend-title">Expirando</div>
-    </div>
-
-    <div class="legend-item">
-        <div class="legend-color" style="background-color: green;"></div>
-        <div class="legend-title">Válidos</div>
-    </div> 
-
-    <div class="legend-item">
-  <a href="grafico.php" target="_blank" onclick="openWindow(event)" class="button-style">
-    <div class="legend-title">Gráfico</div>
-  </a>
-</div>
-</div>
 
 
-    <?php foreach ($certificates as $certificate) : ?>
+    <?php foreach ($certificates as $certificate): ?>
         <div class="container <?php echo $certificate["validityClass"]; ?>">
             <table>
                 <tr>
                     <th>URL</th>
-                    <td><?php echo $certificate["url"]; ?></td>
+                    <td>
+                        <?php echo $certificate["url"]; ?>
+                    </td>
                 </tr>
-                <?php if (!$certificate["valid"]) : ?>
+                <?php if (!$certificate["valid"]): ?>
                     <tr>
                         <th>Domínio</th>
                         <td></td>
@@ -249,19 +263,26 @@ function getValidityClass($validTo) {
                         <th>Validade</th>
                         <td></td>
                     </tr>
-                <?php else : ?>
+                <?php else: ?>
                     <?php $certificateInfo = openssl_x509_parse($certificate["certificate"]); ?>
                     <tr>
                         <th>Domínio</th>
-                        <td><?php echo $certificateInfo["subject"]["CN"] ?? "N/A"; ?></td>
+                        <td>
+                            <?php echo $certificateInfo["subject"]["CN"] ?? "N/A"; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th>Emissor</th>
-                        <td><?php echo $certificateInfo["issuer"]["CN"] ?? "N/A"; ?></td>
+                        <td>
+                            <?php echo $certificateInfo["issuer"]["CN"] ?? "N/A"; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th>Validade</th>
-                        <td><?php echo formatDate($certificateInfo["validFrom_time_t"] ?? 0); ?> até <?php echo formatDate($certificateInfo["validTo_time_t"] ?? 0); ?></td>
+                        <td>
+                            <?php echo formatDate($certificateInfo["validFrom_time_t"] ?? 0); ?> até
+                            <?php echo formatDate($certificateInfo["validTo_time_t"] ?? 0); ?>
+                        </td>
                     </tr>
                 <?php endif; ?>
             </table>
@@ -269,24 +290,23 @@ function getValidityClass($validTo) {
     <?php endforeach; ?>
 
     <script>
-        setTimeout(function() {
+        setTimeout(function () {
             location.reload();
         }, 300000); // Recarregar a página após 5 minuto (300000 milissegundos)
     </script>
 
-
-<script>
-    function openWindow(event) {
-        event.preventDefault(); // Impede o comportamento padrão do link
-        var width = 1000; // Largura da janela em pixels
-        var height = 700; // Altura da janela em pixels
-        var left = (window.screen.width - width) / 2; // Posição horizontal da janela
-        var top = (window.screen.height - height) / 2; // Posição vertical da janela
-        var features = `width=${width},height=${height},left=${left},top=${top}`;
-        window.open(event.target.href, "_blank", features);
-    }
-</script>
-
+    <script>
+        function openWindow(event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+            var width = 1000; // Largura da janela em pixels
+            var height = 700; // Altura da janela em pixels
+            var left = (window.screen.width - width) / 2; // Posição horizontal da janela
+            var top = (window.screen.height - height) / 2; // Posição vertical da janela
+            var features = `width=${width},height=${height},left=${left},top=${top}`;
+            window.open(event.target.href, "_blank", features);
+        }
+    </script>
 
 </body>
+
 </html>
