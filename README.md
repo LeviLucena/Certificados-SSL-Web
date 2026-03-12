@@ -1,52 +1,170 @@
-# Certificado SSL Checker - Projeto Final
+# 🔒 SSL Monitor
 
-Este projeto é um Certificado SSL Checker, que verifica e exibe informações sobre os certificados SSL de uma lista de URLs. Ele permite visualizar o status de validade dos certificados SSL, o domínio, o emissor e a data de validade.
+Painel de monitoramento de certificados SSL em tempo real, desenvolvido em PHP puro com interface moderna e responsiva. Verifica, classifica e exibe informações técnicas detalhadas dos certificados de uma lista de URLs configurável.
 
-![pagina](https://github.com/LeviLucena/Certificados-SSL-Web/assets/34045910/2cf1e710-656d-4c22-b02d-c14048b29600)
+[![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=flat-square&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+[![Chart.js](https://img.shields.io/badge/Chart.js-4.x-FF6384?style=flat-square&logo=chart.js&logoColor=white)](https://chartjs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Autor](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/levilucena/)
 
+---
 
 ## Funcionalidades
 
-- Verificação de certificados SSL de uma lista de URLs.
-- Exibição do status de validade dos certificados (válido, expirando ou expirado).
-- Exibição do domínio e do emissor do certificado.
-- Exibição da data de validade do certificado.
-- Exibição de gráfico com distinção entre as URLs
-- Paginação dos resultados para melhor organização e visualização.
-- Classificação dos certificados por tempo de validade (expirados, expirando e válidos).
-- Interface amigável e responsiva.
+### Monitor Principal (`index.php`)
+- **Verificação em tempo real** de certificados SSL via conexão TLS direta
+- **Gauge de saúde** — percentual geral do parque de certificados no header
+- **Cards informativos** com dados completos de cada certificado:
+  - Domínio (CN), Emissor, Datas de emissão e expiração
+  - Tipo e tamanho da chave (ex: RSA 2048 bits)
+  - Algoritmo de assinatura (ex: SHA256withRSA)
+  - Painel colapsável com: SANs, Número de série, Fingerprint SHA256 e URL OCSP
+- **Barra de progresso** de validade com codificação por cor
+- **Classificação automática** por status:
+  - 🔴 **Expirado** — certificado vencido ou servidor inacessível
+  - 🟡 **Expirando** — vence em até **40 dias**
+  - 🟢 **Válido** — dentro do prazo
+- **Filtros por status** e **busca por URL** em tempo real
+- **Atualização automática** a cada 5 minutos com contador regressivo
 
-## Tecnologias utilizadas
+### Dashboard Analítico (`grafico.php`)
+- **Gráfico de barras** — distribuição por status
+- **Gráfico de rosca** — proporção visual
+- **Barras horizontais** — dias restantes por certificado (ordenado)
+- **Calendário de expirações** — quantos certificados vencem em cada um dos próximos 12 meses
+- **Legendas detalhadas** com favicon, URL e dias restantes por grupo
 
-- PHP: linguagem de programação utilizada para a lógica do servidor e manipulação dos certificados SSL.
-- HTML: linguagem de marcação utilizada para a estrutura da página web.
-- CSS: linguagem de estilo utilizada para a aparência e o design da página web.
-- OpenSSL: biblioteca utilizada para obter informações dos certificados SSL.
-- GitHub: plataforma utilizada para hospedar o código-fonte do projeto.
+---
 
-## Instruções de uso
+## Interface
 
-1. Clone ou faça o download do repositório para o seu ambiente local.
-2. Certifique-se de ter o PHP instalado em seu sistema.
-3. Configure o servidor web (por exemplo, Apache) para executar o código PHP.
-4. Edite o arquivo `index.php` e adicione as URLs que você deseja verificar na variável `$urls`.
-5. Acesse a página `index.php` em seu navegador para visualizar os resultados.
+> Tema dark moderno com glassmorphism, gradientes e animações suaves
 
-## Personalização
+- Fundo com blobs de gradiente radial animados
+- Cards com borda superior colorida e glow no hover
+- Animação de entrada em cascata (fade-up staggered)
+- Cards expirados com borda pulsante em vermelho
+- Layout responsivo (mobile, tablet e desktop)
 
-- Caso deseje adicionar ou remover URLs a serem verificadas, edite o array `$urls` no arquivo `index.php`.
-- É possível personalizar a aparência e o estilo da página por meio do arquivo CSS (`style.css`).
-- Para alterar a quantidade de resultados exibidos por página, ajuste o valor da variável `$perPage` no arquivo `index.php`.
+---
 
-## Contribuição
+## Tecnologias
 
-Contribuições são bem-vindas! Sinta-se à vontade para enviar sugestões, correções de bugs ou melhorias por meio de pull requests.
+| Tecnologia | Uso |
+|---|---|
+| **PHP 8.x** | Lógica de verificação SSL, parsing de certificados |
+| **OpenSSL (ext)** | `openssl_x509_parse`, `openssl_pkey_get_details`, `openssl_x509_fingerprint` |
+| **Bootstrap 5.3** | Grid responsivo e componentes |
+| **Bootstrap Icons** | Iconografia |
+| **Chart.js 4** | Gráficos do dashboard |
+| **Google Fonts (Inter)** | Tipografia |
+
+---
+
+## Instalação
+
+### Pré-requisitos
+- PHP 8.x com extensão OpenSSL habilitada
+- Arquivo `cacert.pem` para validação de certificados (ex: [curl.se/ca/cacert.pem](https://curl.se/ca/cacert.pem))
+
+### Usando o servidor embutido do PHP
+
+```bash
+# Clone o repositório
+git clone https://github.com/LeviLucena/Certificados-SSL-Web.git
+cd Certificados-SSL-Web
+
+# Inicie o servidor (ajuste o caminho do PHP e do php.ini)
+php -c php.ini -S localhost:8080
+```
+
+Acesse **http://localhost:8080** no navegador.
+
+### Configuração do `php.ini`
+
+Certifique-se de que o arquivo `php.ini` contém:
+
+```ini
+extension=openssl
+openssl.cafile="C:\caminho\para\cacert.pem"
+```
+
+---
+
+## Configuração
+
+### Adicionar URLs para monitorar
+
+Edite o array `$urls` no início do arquivo `index.php`:
+
+```php
+$urls = [
+    "https://www.meusite.com.br",
+    "https://api.minhaempresa.com",
+    "https://painel.sistema.io",
+    // Adicione mais URLs aqui...
+];
+```
+
+### Ajustar o limiar de alerta "Expirando"
+
+Por padrão, certificados com **40 dias ou menos** de validade são marcados como "Expirando". Para alterar:
+
+```php
+// index.php — função getValidityClass()
+if ($d <= 40) return "expiring"; // altere 40 para o valor desejado
+```
+
+### Ajustar timeout de conexão
+
+```php
+// index.php — função getCertificate()
+$s = @stream_socket_client("ssl://{$p['host']}:{$port}", $e, $err, 8, ...);
+//                                                                   ↑
+//                                                         segundos por URL
+```
+
+---
+
+## Estrutura do projeto
+
+```
+Certificados-SSL-Web/
+├── index.php      # Monitor principal — listagem e detalhes dos certificados
+├── grafico.php    # Dashboard analítico — gráficos e estatísticas
+├── php.ini        # Configuração do PHP (OpenSSL, cacert)
+└── README.md
+```
+
+---
+
+## Informações exibidas por certificado
+
+| Campo | Descrição |
+|---|---|
+| Domínio | Common Name (CN) do Subject |
+| Emissor | Common Name (CN) do Issuer |
+| Emitido em | Data de início da validade |
+| Expira em | Data de expiração |
+| Chave | Tipo e tamanho (ex: RSA 2048 bits) |
+| Algoritmo | Algoritmo de assinatura (ex: SHA256withRSA) |
+| SANs | Nomes alternativos do certificado |
+| Série (hex) | Número de série em hexadecimal |
+| Fingerprint | SHA256 do certificado |
+| OCSP | URL do servidor de revogação |
+
+---
 
 ## Licença
 
-Este projeto está licenciado sob a [MIT License](LICENSE). Sinta-se à vontade para utilizá-lo e modificá-lo de acordo com suas necessidades.
+Distribuído sob a [MIT License](LICENSE).
 
-Espero que esse README seja útil para apresentar o projeto final em seu repositório do GitHub. Sinta-se à vontade para personalizá-lo de acordo com suas preferências e necessidades.
+---
 
-## Autor: [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/levilucena/)](https://www.linkedin.com/in/levilucena/)
+## Autor
 
+Desenvolvido por **Levi Lucena**
+
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/levilucena/)
+[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github)](https://github.com/LeviLucena)

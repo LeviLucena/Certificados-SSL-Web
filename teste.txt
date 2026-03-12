@@ -1,0 +1,38 @@
+1️⃣ Site clássico para testes (SSL expirado)
+
+https://expired.badssl.com/
+
+2️⃣ Outros domínios do mesmo projeto com problemas de SSL
+
+Todos abaixo geram erro TLS proposital:
+
+https://self-signed.badssl.com/
+ → certificado self-signed
+
+https://wrong.host.badssl.com/
+ → hostname errado
+
+https://untrusted-root.badssl.com/
+ → root CA não confiável
+
+https://revoked.badssl.com/
+ → certificado revogado
+
+https://expired.badssl.com/
+ → certificado expirado
+
+Esses ambientes são muito usados para testes de segurança, scanners, automações ou validação de clientes HTTP.
+
+3️⃣ Se você quer lista de domínios reais com SSL expirando
+
+Existem serviços que geram isso automaticamente:
+
+https://crt.sh
+
+https://censys.io
+
+https://securitytrails.com
+
+https://ssllabs.com/ssltest/
+
+Eles permitem buscar domínios com certificados próximos do vencimento.
