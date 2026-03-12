@@ -445,7 +445,12 @@ $gaugeColor  = $healthScore >= 80 ? '#22c55e' : ($healthScore >= 50 ? '#f59e0b' 
 <script>
   // Countdown
   let s=300, el=document.getElementById('countdown');
-  setInterval(()=>{ s--; if(s<=0)location.reload(); el.textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; },1000);
+  setInterval(()=>{
+    s--;
+    const display = Math.max(s, 0);
+    el.textContent=`${Math.floor(display/60)}:${String(display%60).padStart(2,'0')}`;
+    if(s<=0) location.reload();
+  },1000);
 
   // Filter + search
   const cols=document.querySelectorAll('.cert-col');
