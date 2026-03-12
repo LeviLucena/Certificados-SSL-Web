@@ -10,6 +10,8 @@ Painel de monitoramento de certificados SSL em tempo real, desenvolvido em PHP p
 
 ---
 
+<img width="1868" height="910" alt="image" src="https://github.com/user-attachments/assets/e5b8fddf-3536-409a-8040-943bdc79a59c" />
+
 ## Funcionalidades
 
 ### Monitor Principal (`index.php`)
@@ -34,6 +36,15 @@ Painel de monitoramento de certificados SSL em tempo real, desenvolvido em PHP p
 - **Barras horizontais** — dias restantes por certificado (ordenado)
 - **Calendário de expirações** — quantos certificados vencem em cada um dos próximos 12 meses
 - **Legendas detalhadas** com favicon, URL e dias restantes por grupo
+
+### Screenshots
+| Screenshot 1 | Screenshot 2 | Screenshot 3 |
+|--------------|--------------|--------------|
+| <img src="https://github.com/user-attachments/assets/e5b8fddf-3536-409a-8040-943bdc79a59c" width="100%"> | <img src="https://github.com/user-attachments/assets/5a6f88d1-c483-476f-a1d8-e368ae64f509" width="100%"> | <img src="https://github.com/user-attachments/assets/6c4f830c-7ae6-408a-bc05-1d3dff6da7f1" width="100%"> |
+
+| Screenshot 4 | Screenshot 5 | Screenshot 6 |
+|--------------|--------------|--------------|
+| <img src="https://github.com/user-attachments/assets/718df896-6ab2-46f0-b48a-ac398b221808" width="100%"> | <img src="https://github.com/user-attachments/assets/9b24753e-6ccc-4170-9e91-ea3e39724b97" width="100%"> | <img src="https://github.com/user-attachments/assets/acc7cfa1-a755-4202-afed-11d33c38b0db" width="100%"> |
 
 ---
 
